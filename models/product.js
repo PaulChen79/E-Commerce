@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     invetory: DataTypes.INTEGER,
     color: DataTypes.STRING,
     description: DataTypes.STRING,
-    price: DataTypes.INTEGER,
+    price: DataTypes.STRING,
     categoryId: DataTypes.INTEGER
   }, {
     sequelize,
