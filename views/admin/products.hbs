@@ -1,5 +1,5 @@
 {{>admin-tabs route='products'}}
-<a href='/admin/restaurants/create'>
+<a href='/admin/products/create'>
   <button type="button" class="btn btn-primary">New Products</button>
 </a>
 <br />
@@ -10,7 +10,11 @@
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Category</th>
-      <th scope="col"></th>
+      <th scope="col">Size</th>
+      <th scope="col">Invetory</th>
+      <th scope="col">Color</th>
+      <th scope="col">Price</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +23,10 @@
         <th scope="row">{{this.id}}</th>
         <td>{{this.name}}</td>
         <td>{{this.Category.name}}</td>
+        <td>{{this.size}}</td>
+        <td>{{this.invetory}}</td>
+        <td>{{this.color}}</td>
+        <td>{{this.price}}</td>
         <td>
           <button type="button" class="btn btn-link">
             <a class="btn btn-link link-primary" href="/admin/products/{{this.id}}">

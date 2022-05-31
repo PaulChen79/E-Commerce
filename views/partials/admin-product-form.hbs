@@ -1,0 +1,36 @@
+<div class="form-row mb-3">
+  <label class="form-label" for="name">Name</label>
+  <input class="form-control" type="text" name="name" id="name" placeholder="Enter name" required value="{{product.name}}">
+</div>
+<div class="form-row mb-3">
+  <label class="form-label" for="categoryId">Category</label>
+  <select class="form-control" id="categoryId" name="categoryId">
+    {{#each categories}}
+      <option value="{{this.id}}" {{#ifCond this.id ../product.categoryId}} selected {{/ifCond}}>
+        {{this.name}}
+      </option>
+    {{/each}}
+  </select>
+</div>
+<div class="form-row mb-3">
+  <label class="form-label" for="tel">Size</label>
+  <input class="form-control" type="text" name="size" id="size" placeholder="Enter size" value="{{product.size}}">
+</div>
+<div class="form-row mb-3">
+  <label class="form-label" for="address">Invetory</label>
+  <input class="form-control" type="number" name="invetory" id="invetory" placeholder="Enter invetory" value="{{product.invetory}}">
+</div>
+<div class="form-row mb-3">
+  <label class="form-label" for="openingHours">Opening Hours</label>
+  <input class="form-control" type="time" name="openingHours" id="openingHours" placeholder="Enter opening hours" value="{{product.openingHours}}">
+</div>
+<div class="form-row mb-3">
+  <label class="form-label" for="description">Description</label>
+  <textarea class="form-control" id="description" name="description" rows="3">{{product.description}}</textarea>
+</div>
+<div class="form-row mb-3">
+  <label class="form-label" for="image">Image</label>
+  <input class="form-control" type="file" class="form-control-file" id="image_link" name="image_link">
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
+<a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>

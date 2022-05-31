@@ -22,6 +22,13 @@ const adminControllers = {
     } catch (error) {
       next(error)
     }
+  },
+  getCreateProductPage: (req, res, next) => {
+    try {
+      res.render('admin/create_product')
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
