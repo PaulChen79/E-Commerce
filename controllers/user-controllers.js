@@ -54,14 +54,19 @@ const userControllers = {
     }
   },
   signIn: (req, res, next) => {
-    req.flash('success_messages', '成功登入！')
-    res.redirect('/products')
-  },
-  logout: async (req, res, next) => {
     try {
-      req.flash('success_messages', '登出成功！')
-      req.logout()
-      res.redirect('/signin')
+      req.flash('success_messages', '成功登入！')
+      res.redirect('/products')
+    } catch (error) {
+      next(error)
+    }
+  },
+  logout: (req, res, next) => {
+    try {
+      req.logout(() => {
+        req.flash('success_messages', '登出成功！')
+        res.redirect('/signin')
+      })
     } catch (error) {
       next(error)
     }
