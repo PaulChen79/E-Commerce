@@ -53,6 +53,10 @@ const userControllers = {
       next(error)
     }
   },
+  signIn: (req, res, next) => {
+    req.flash('success_messages', '成功註冊帳號！')
+    res.redirect('/products')
+  },
   logout: async (req, res, next) => {
     try {
       req.flash('success_messages', '登出成功！')
