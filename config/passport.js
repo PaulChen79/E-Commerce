@@ -9,7 +9,7 @@ passport.use(new LocalStrategy({
   passReqToCallback: true
 }, async (req, email, password, done) => {
   try {
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ where: { email } })
     if (!user) return done(null, false, req.flash('warning_msg', '帳號或密碼輸入錯誤'))
     const isMatched = await bcrypt.compare(password, user.password)
     if (!isMatched) return done(null, false, req.flash('warning_msg', '帳號或密碼輸入錯誤'))

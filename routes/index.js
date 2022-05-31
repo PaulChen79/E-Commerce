@@ -3,11 +3,11 @@ const router = express.Router()
 const passport = require('../config/passport')
 const { generalErrorHandler } = require('../middleware/error-handler')
 const { authenticated, authenticatedAdmin } = require('../middleware/auth')
+const admin = require('./modules/admin')
 const userControllers = require('../controllers/user-controllers')
 const productControllers = require('../controllers/product-controllers')
-const adminControllers = require('../controllers/admin-controllers')
 
-router.use('/admin', authenticatedAdmin, adminControllers.getProducts)
+router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/signup', userControllers.getSignupPage)
 router.post('/signup', userControllers.signUp)
