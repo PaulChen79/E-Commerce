@@ -1,4 +1,5 @@
 const { Product, Category } = require('../models')
+const { localFileHandler } = require('../helpers/file-helpers')
 
 const adminControllers = {
   getProducts: async (req, res, next) => {
@@ -25,7 +26,8 @@ const adminControllers = {
   },
   getCreateProductPage: async (req, res, next) => {
     try {
-      res.render('admin/create-product')
+      const categories = await Category.findAll({ raw: true })
+      res.render('admin/create-product', { categories })
     } catch (error) {
       next(error)
     }
@@ -39,13 +41,27 @@ const adminControllers = {
         invetory,
         color,
         price,
-        description,
-        imageLink
+        description
       } = req.body
-      if (!name || !categoryId || !size || !invetory || !color || !price || !description || !imageLink) {
+      console.log(req.body)
+      const { file } = req
+      if (!name || !categoryId || !size || !invetory || !color || !price || !description) {
         req.flash('warning_msg', '需要填寫所有項目')
-        return req.redirect('back')
+        return res.redirect('back')
       }
+      const filePath = await localFileHandler(file)
+      await Product.create({
+        name,
+        categoryId,
+        size,
+        invetory,
+        color,
+        price,
+        description,
+        imageLink: filePath || null
+      })
+      req.flash('success_messages', '成功創建商品')
+      return res.redirect('admin/products')
     } catch (error) {
       next(error)
     }

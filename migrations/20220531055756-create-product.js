@@ -13,8 +13,7 @@ module.exports = {
         allowNull: false
       },
       image_link: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       size: {
         type: Sequelize.STRING,
