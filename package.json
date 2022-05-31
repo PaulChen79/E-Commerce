@@ -19,7 +19,6 @@
 		"express": "^4.18.1",
 		"express-handlebars": "^6.0.6",
 		"express-session": "^1.17.3",
-		"faker": "5.5.3",
 		"imgur": "^2.2.0",
 		"method-override": "^3.0.0",
 		"multer": "^1.4.5-lts.1",
@@ -30,6 +29,7 @@
 		"sequelize-cli": "^6.4.1"
 	},
 	"devDependencies": {
+		"@faker-js/faker": "^7.1.0",
 		"@types/express-handlebars": "^6.0.0",
 		"chai": "^4.2.0",
 		"eslint": "^7.32.0",
