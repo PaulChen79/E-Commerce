@@ -1,0 +1,42 @@
+{
+	"name": "forum-express-grading",
+	"version": "3.0.0",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js",
+		"lint": "eslint \"**/*.js\" --fix"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ALPHACamp/forum-express-grading.git"
+	},
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"connect-flash": "^0.1.1",
+		"dayjs": "^1.11.2",
+		"dotenv": "^16.0.1",
+		"express": "^4.18.1",
+		"express-handlebars": "^6.0.6",
+		"express-session": "^1.17.3",
+		"faker": "5.5.3",
+		"imgur": "^2.2.0",
+		"method-override": "^3.0.0",
+		"multer": "^1.4.5-lts.1",
+		"mysql2": "^2.3.3",
+		"passport": "^0.6.0",
+		"passport-local": "^1.0.0",
+		"sequelize": "^6.20.1",
+		"sequelize-cli": "^6.4.1"
+	},
+	"devDependencies": {
+		"@types/express-handlebars": "^6.0.0",
+		"chai": "^4.2.0",
+		"eslint": "^7.32.0",
+		"eslint-config-standard": "^16.0.3",
+		"eslint-plugin-import": "^2.23.4",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^5.1.0",
+		"nodemon": "^2.0.12"
+	}
+}
