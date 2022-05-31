@@ -29,6 +29,26 @@ const adminControllers = {
     } catch (error) {
       next(error)
     }
+  },
+  createProduct: async (req, res, next) => {
+    try {
+      const {
+        name,
+        categoryId,
+        size,
+        invetory,
+        color,
+        price,
+        description,
+        imageLink
+      } = req.body
+      if (!name || !categoryId || !size || !invetory || !color || !price || !description || !imageLink) {
+        req.flash('warning_msg', '需要填寫所有項目')
+        return req.redirect('back')
+      }
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
