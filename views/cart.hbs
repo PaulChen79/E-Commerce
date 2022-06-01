@@ -1,5 +1,5 @@
 <form action="/orders" method="POST" style="display: inline;">
-  <input type="hidden" name="productId" value="{{product.id}}" />
+  <input type="hidden" name="cartId" value="{{cart.id}}" />
   <button type="submit" class="btn btn-info">Checkout</button>
 </form>
 <br />
@@ -11,35 +11,24 @@
       <th scope="col">Name</th>
       <th scope="col">Amount</th>
       <th scope="col">Price</th>
-      <th scope="col">Invetory</th>
-      <th scope="col">Color</th>
-      <th scope="col">Price</th>
       <th scope="col" class="text-center">Action</th>
     </tr>
   </thead>
   <tbody>
-    {{#each products}}
+    {{#each cart.CartItems}}
       <tr>
         <th scope="row">{{this.id}}</th>
-        <td>{{this.name}}</td>
-        <td>{{this.Category.name}}</td>
-        <td>{{this.size}}</td>
-        <td>{{this.invetory}}</td>
-        <td>{{this.color}}</td>
-        <td>${{this.price}}</td>
+        <td>{{this.Product.name}}</td>
+        <td>{{this.quantity}}</td>
+        <td>{{this.price}}</td>
         <td class="d-flex justify-content-center">
           <button type="button" class="btn btn-link">
-            <a class="btn btn-link link-primary" href="/admin/products/{{this.id}}">
-              Show
-            </a>
-          </button>
-          <button type="button" class="btn btn-link">
-            <a class="btn btn-link link-primary" href="/admin/products/{{this.id}}/edit">
+            <a class="btn btn-link link-primary" href="/cartItems/{{this.id}}/edit">
               Edit
             </a>
           </button>
-          <form action="/admin/products/{{this.id}}?_method=DELETE" method="POST" style="display: inline;" class="align-self-center">
-            <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
+          <form action="/cartItems/{{this.id}}?_method=DELETE" method="POST" style="display: inline;" class="align-self-center">
+            <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{ this.Product.name }} 嗎？`)">Delete</button>
           </form>
         </td>
       </tr>

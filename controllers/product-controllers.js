@@ -73,6 +73,21 @@ const productControllers = {
     } catch (error) {
       next(error)
     }
+  },
+  getCart: async (req, res, next) => {
+    try {
+      const cartId = req.params.id
+      const cart = await Cart.findByPk(cartId, {
+        raw: true,
+        nest: true,
+        include: { model: CartItem, include: Product }
+      })
+      if (!cart) throw new Error('購物車不存在')
+      console.log(cart)
+      return res.render('cart', { cart })
+    } catch (error) {
+      next(error)
+    }
   }
 }
 

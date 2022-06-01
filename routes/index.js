@@ -20,6 +20,8 @@ router.get('/products', authenticated, productControllers.getProducts)
 
 router.post('/cartItems', productControllers.addToCart)
 
+router.get('/cart/:id', productControllers.getCart)
+
 router.use('/', generalErrorHandler)
 router.use('/', (req, res) => res.redirect('/products'))
 
