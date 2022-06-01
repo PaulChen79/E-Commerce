@@ -43,7 +43,6 @@ const adminControllers = {
         price,
         description
       } = req.body
-      console.log(req.body)
       const { file } = req
       if (!name || !categoryId || !size || !invetory || !color || !price || !description) {
         req.flash('warning_msg', '需要填寫所有項目')
@@ -76,6 +75,45 @@ const adminControllers = {
         return res.redirect('back')
       }
       return res.render('admin/edit-product', { product, categories })
+    } catch (error) {
+      next(error)
+    }
+  },
+  editProduct: async (req, res, next) => {
+    try {
+      const productId = req.params.id
+      const {
+        name,
+        categoryId,
+        size,
+        invetory,
+        color,
+        price,
+        description
+      } = req.body
+      const { file } = req
+      if (!name || !categoryId || !size || !invetory || !color || !price || !description) {
+        req.flash('warning_msg', '需要填寫所有項目')
+        return res.redirect('back')
+      }
+      const filePath = await localFileHandler(file)
+      const product = await Product.findByPk(productId)
+      if (!product) {
+        req.flash('warning_msg', '商品不存在')
+        return res.redirect('back')
+      }
+      await product.update({
+        name,
+        categoryId,
+        size,
+        invetory,
+        color,
+        price,
+        description,
+        imageLink: filePath || product.imageLink
+      })
+      req.flash('success_messages', '成功編輯商品')
+      return res.redirect('/admin/products')
     } catch (error) {
       next(error)
     }
