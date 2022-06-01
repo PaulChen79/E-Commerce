@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const { Op } = require('sequelize')
-const { User } = require('../models')
+const { User, Cart } = require('../models')
 
 const userControllers = {
   getSigninPage: (req, res, next) => {
@@ -44,9 +44,10 @@ const userControllers = {
         req.flash('warning_msg', 'Email或Username已經註冊過了')
         return res.redirect('back')
       }
+      const cart = await Cart.create({})
       const salt = await bcrypt.genSalt(10)
       const hash = await bcrypt.hash(password, salt)
-      User.create({ userName, email, password: hash })
+      User.create({ userName, email, password: hash, cartId: cart.id })
       req.flash('success_messages', '成功註冊帳號！')
       res.redirect('/signin')
     } catch (error) {
