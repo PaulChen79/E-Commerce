@@ -26,7 +26,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Category Name</th>
-      <th scope="col">#</th>
+      <th scope="col" class="text-center">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -34,13 +34,13 @@
       <tr>
         <th scope="row">{{this.id}}</th>
         <td>{{this.name}}</td>
-        <td>
+        <td class="d-flex justify-content-center">
           <button type="button" class="btn btn-link">
             <a class="btn btn-link link-primary" href="/admin/categories/{{this.id}}">
               Edit
             </a>
           </button>
-          <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <form action="/admin/categories/{{this.id}}?_method=DELETE" method="POST" style="display: inline;" class="align-self-center">
             <button type="submit" class="btn btn-link link-danger">Delete</button>
           </form>
         </td>

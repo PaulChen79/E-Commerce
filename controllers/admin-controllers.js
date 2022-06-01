@@ -146,7 +146,54 @@ const adminControllers = {
     } catch (error) {
       next(error)
     }
-  }
+  },
+  getCategoriesPage: async (req, res, next) => {
+    try {
+      const categoryId = req.params.id
+      const category = await Category.findByPk(categoryId, { raw: true })
+      const categories = await Category.findAll({ raw: true })
+      return res.render('admin/categories', { categories, category })
+    } catch (error) {
+      next(error)
+    }
+  },
+  createCategory: async (req, res, next) => {
+    try {
+      const { name } = req.body
+      if (!name) {
+        req.flash('warning_msg', '必須填寫分類名稱')
+        return res.redirect('/admin/categories')
+      }
+      const category = await Category.findOne({ where: { name } })
+      if (category) {
+        req.flash('warning_msg', '此分類已被創建')
+        return res.redirect('/admin/categories')
+      }
+      await Category.create({ name })
+      req.flash('success_messages', '成功創建分類')
+      return res.redirect('/admin/categories')
+    } catch (error) {
+      next(error)
+    }
+  },
+  updateCategory: async (req, res, next) => {
+    try {
+      const categoryId = req.params.id
+      const { name } = req.body
+      if (!name) {
+        req.flash('warning_msg', '必須填寫分類名稱')
+        return res.redirect('back')
+      }
+      const category = await Category.findByPk(categoryId)
+      if (!category) throw new Error('分類不存在')
+      await category.update({ name })
+      req.flash('success_messages', '成功編輯分類')
+      return res.redirect('/admin/categories')
+    } catch (error) {
+      next(error)
+    }
+  },
+  deleteCategory: async (req, res, next) => {}
 }
 
 module.exports = adminControllers

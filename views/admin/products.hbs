@@ -14,7 +14,7 @@
       <th scope="col">Invetory</th>
       <th scope="col">Color</th>
       <th scope="col">Price</th>
-      <th scope="col">Action</th>
+      <th scope="col" class="text-center">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -27,7 +27,7 @@
         <td>{{this.invetory}}</td>
         <td>{{this.color}}</td>
         <td>${{this.price}}</td>
-        <td>
+        <td class="d-flex justify-content-center">
           <button type="button" class="btn btn-link">
             <a class="btn btn-link link-primary" href="/admin/products/{{this.id}}">
               Show
@@ -38,7 +38,7 @@
               Edit
             </a>
           </button>
-          <form action="/admin/products/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <form action="/admin/products/{{this.id}}?_method=DELETE" method="POST" style="display: inline;" class="align-self-center">
             <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
           </form>
         </td>

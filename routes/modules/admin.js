@@ -14,6 +14,12 @@ router.post('/products', upload.single('image'), adminControllers.createProduct)
 router.patch('/users/:id', adminControllers.setAdmin)
 router.get('/users', adminControllers.getUsersPage)
 
+router.get('/categories/:id', adminControllers.getCategoriesPage)
+router.put('/categories/:id', adminControllers.updateCategory)
+router.delete('/categories/:id', adminControllers.deleteCategory)
+router.get('/categories', adminControllers.getCategoriesPage)
+router.post('/categories', adminControllers.createCategory)
+
 router.get('/', (req, res) => res.redirect('/admin/products'))
 
 module.exports = router
