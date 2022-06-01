@@ -15,7 +15,7 @@
     {{#each users}}
       <tr>
         <th scope="row">{{this.id}}</th>
-        <td>{{this.name}}</td>
+        <td>{{this.userName}}</td>
         <td>{{this.email}}</td>
         <td>{{#ifCond this.isAdmin 1}}Admin{{else}}User{{/ifCond}}</td>
         <td>
