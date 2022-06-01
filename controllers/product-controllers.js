@@ -30,6 +30,16 @@ const productControllers = {
     } catch (error) {
       next(error)
     }
+  },
+  getProduct: async (req, res, next) => {
+    try {
+      const productId = req.params.id
+      const product = await Product.findByPk(productId, { raw: true, nest: true, include: [Category] })
+      if (!product) throw new Error('商品不存在')
+      return res.render('product', { product })
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
