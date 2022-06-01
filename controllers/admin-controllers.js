@@ -65,6 +65,20 @@ const adminControllers = {
     } catch (error) {
       next(error)
     }
+  },
+  getEditProductPage: async (req, res, next) => {
+    try {
+      const productId = req.params.id
+      const categories = await Category.findAll({ raw: true })
+      const product = await Product.findByPk(productId, { raw: true, nest: true, include: [Category] })
+      if (!product) {
+        req.flash('warning_msg', '商品不存在')
+        return res.redirect('back')
+      }
+      return res.render('admin/edit-product', { product, categories })
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
