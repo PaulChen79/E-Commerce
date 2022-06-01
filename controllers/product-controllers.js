@@ -77,13 +77,10 @@ const productControllers = {
   getCart: async (req, res, next) => {
     try {
       const cartId = req.params.id
-      const cart = await Cart.findByPk(cartId, {
-        raw: true,
-        nest: true,
-        include: { model: CartItem, include: Product }
-      })
+      const cart = await Cart.findAll({ where: { id: cartId }, include: [{ model: CartItem, include: [Product] }], raw: true, nest: true }
+      )
       if (!cart) throw new Error('購物車不存在')
-      console.log(cart)
+      console.log(JSON.stringify(cart, null, 2))
       return res.render('cart', { cart })
     } catch (error) {
       next(error)
