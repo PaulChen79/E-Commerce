@@ -61,7 +61,7 @@ const adminControllers = {
         imageLink: filePath || null
       })
       req.flash('success_messages', '成功創建商品')
-      return res.redirect('admin/products')
+      return res.redirect('/admin/products')
     } catch (error) {
       next(error)
     }
