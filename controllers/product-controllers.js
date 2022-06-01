@@ -50,7 +50,12 @@ const productControllers = {
         return res.redirect('back')
       }
       const price = Number(productPrice) * Number(quantity)
+      const cart = await Cart.findByPk(cartId)
+      if (!cart) throw new Error('購物車不存在')
       await CartItem.create({ quantity, price, cartId, productId })
+      await cart.update({
+        totalPrice: cart.totalPrice += price
+      })
       req.flash('success_messages', '商品已加入購物車')
       res.redirect(`products/${productId}`)
     } catch (error) {
