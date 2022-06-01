@@ -193,7 +193,18 @@ const adminControllers = {
       next(error)
     }
   },
-  deleteCategory: async (req, res, next) => {}
+  deleteCategory: async (req, res, next) => {
+    try {
+      const categoryId = req.params.id
+      const category = await Category.findByPk(categoryId)
+      if (!category) throw new Error('分類不存在')
+      await category.destroy()
+      req.flash('success_messages', '成功刪除分類')
+      return res.redirect('/admin/categories')
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = adminControllers
