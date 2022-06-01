@@ -18,7 +18,9 @@
               <span class="text-white nav-link">Hi, {{ user.userName }}</span>
             </li>
             <li class="nav-item">
-              <a href="/cart/{{user.cartId}}"><button class="btn btn-outline-info my-sm-0 my-2 mx-2">Cart</button></a>
+              <a href="/cart/{{user.cartId}}"><button class="btn btn-outline-info my-sm-0 my-2 mx-2 position-relative">
+                Cart{{#if user.Cart.CartItems}}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+ {{getCartAmount user.Cart.CartItems}}<span class="visually-hidden">unread messages</span></span>{{/if}}
+              </button></a>
             </li>
             <li class="nav-item">
               <a href="/logout"><button class="btn btn-outline-success my-sm-0 my-2">Logout</button></a>
