@@ -18,8 +18,8 @@
               <span class="text-white nav-link">Hi, {{ user.userName }}</span>
             </li>
             <li class="nav-item">
-              <a href="/cart/{{user.cartId}}"><button class="btn btn-outline-info my-sm-0 my-2 mx-1 position-relative">
-                Cart{{#if user.Cart.Products}}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+ {{getCartAmount user.Cart.Products}}<span class="visually-hidden">unread messages</span></span>{{/if}}
+              <a href="/cart/{{user.cartId}}"><button class="btn btn-outline-info my-sm-0 my-2 mx-1 position-relative" style="z-index: 999;">
+                Cart{{#if user.Cart.Products}}<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">+ {{getCartAmount user.Cart.Products}}{{/if}}
               </button></a>
             </li>
             <li class="nav-item">
