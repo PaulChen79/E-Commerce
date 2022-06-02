@@ -1,0 +1,33 @@
+
+<div class="row mb-5">
+  <div class="col-md-1">
+    <p>List</p>
+  </div>
+  <div class="col-md-11">
+    <div class="row">
+      <div class="col-md-4">
+        <img class="img-responsive center-block mb-5" src="{{product.imageLink}}" style="width: 250px; transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
+      </div>
+      <div class="col-md-8">
+        <h1>{{product.name}} [{{product.Category.name}}]</h1>
+        <hr>
+        <p>Size: {{product.size}}</p>
+        <p>Color: {{product.color}}</p>
+        <p>Price: ${{product.price}}</p>
+        <hr>
+        <p style="white-space: break-spaces;">{{product.description}}</p>
+        <form action="/cartItems/{{cartItem.id}}" method="POST" class="mt-5 mb-5">
+          <div class="form-row mb-3">
+            <label class="form-label" for="quantity">Quantity</label>
+            <input class="form-control" type="number" name="quantity" id="quantity" placeholder="Enter quantity" value="{{cartItem.quantity}}">
+          </div>
+          <input type="hidden" name="productId" value="{{product.id}}" />
+          <input type="hidden" name="productPrice" value="{{product.price}}" />
+          <button type="submit" class="btn btn-primary">Edit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>
+<a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>

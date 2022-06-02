@@ -18,6 +18,8 @@ router.get('/logout', userControllers.logout)
 router.get('/products/:id', productControllers.getProduct)
 router.get('/products', authenticated, productControllers.getProducts)
 
+router.get('/cartItems/:id/edit', productControllers.getEditToCartPage)
+router.post('/cartItems/:id', productControllers.editCartItem)
 router.post('/cartItems', productControllers.addToCart)
 
 router.get('/cart/:id', productControllers.getCart)
