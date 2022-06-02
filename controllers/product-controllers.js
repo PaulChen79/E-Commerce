@@ -54,12 +54,12 @@ const productControllers = {
       let totalPrice = 0
       if (!cart) throw new Error('購物車不存在')
       const cartItem = await CartItem.findOne({ where: { productId } })
-      const cartItems = await CartItem.findAll({ raw: true })
       if (cartItem) {
         await cartItem.update({
           quantity: Number(cartItem.quantity) + Number(quantity),
           price: Number(cartItem.price) + Number(price)
         })
+        const cartItems = await CartItem.findAll({ raw: true })
         await cartItems.forEach(c => { totalPrice += c.price })
         await cart.update({ totalPrice })
         req.flash('success_messages', '商品已加入購物車')
@@ -97,6 +97,7 @@ const productControllers = {
       const cartItem = await CartItem.findOne({ where: { productId }, raw: true })
       const product = await Product.findByPk(productId, { raw: true, nest: true, include: [Category] })
       if (!cartItem || !product) throw new Error('商品或購物車物品不存在')
+      console.log(cartItem)
       res.render('edit-cart', { product, cartItem })
     } catch (error) {
       next(error)
@@ -104,25 +105,27 @@ const productControllers = {
   },
   editCartItem: async (req, res, next) => {
     try {
-      const { quantity, productId, productPrice } = req.body
       const cartId = req.user.cartId
+      const productId = req.params.id
+      const { quantity, productPrice } = req.body
       if (!quantity) {
         req.flash('warning_msg', '加入購物車數量至少為 1')
         return res.redirect('back')
       }
       const price = Number(productPrice) * Number(quantity)
       const cart = await Cart.findByPk(cartId)
+      let totalPrice = 0
       if (!cart) throw new Error('購物車不存在')
       const cartItem = await CartItem.findOne({ where: { productId } })
       await cartItem.update({
         quantity: Number(quantity),
         price: Number(price)
       })
-      await cart.update({
-        totalPrice: cart.totalPrice += price
-      })
+      const cartItems = await CartItem.findAll({ raw: true })
+      await cartItems.forEach(c => { totalPrice += c.price })
+      await cart.update({ totalPrice })
       req.flash('success_messages', '成功編輯購物車商品')
-      return res.redirect('back')
+      return res.redirect(`/cart/${cartId}`)
     } catch (error) {
       next(error)
     }
