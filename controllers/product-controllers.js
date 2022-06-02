@@ -50,25 +50,16 @@ const productControllers = {
         return res.redirect('back')
       }
       const price = Number(productPrice) * Number(quantity)
-      const cart = await Cart.findByPk(cartId)
-      let totalPrice = 0
-      if (!cart) throw new Error('購物車不存在')
       const cartItem = await CartItem.findOne({ where: { productId } })
       if (cartItem) {
         await cartItem.update({
           quantity: Number(cartItem.quantity) + Number(quantity),
           price: Number(cartItem.price) + Number(price)
         })
-        const cartItems = await CartItem.findAll({ raw: true })
-        await cartItems.forEach(c => { totalPrice += c.price })
-        await cart.update({ totalPrice })
         req.flash('success_messages', '商品已加入購物車')
         return res.redirect(`products/${productId}`)
       }
       await CartItem.create({ quantity, price, cartId, productId })
-      await cart.update({
-        totalPrice: cart.totalPrice += price
-      })
       req.flash('success_messages', '商品已加入購物車')
       return res.redirect(`products/${productId}`)
     } catch (error) {
@@ -80,11 +71,14 @@ const productControllers = {
       const cartId = req.params.id
       const Products = []
       let totalPrice = 0
-      let cart = await Cart.findAll({ where: { id: cartId }, raw: true, nest: true, include: [Product] })
+      const cart = await Cart.findAll({ where: { id: cartId }, raw: true, nest: true, include: [Product] })
       if (!cart) throw new Error('購物車不存在')
-      cart = await cart.forEach(c => {
+      const cartItems = await CartItem.findAll({ where: { cartId }, raw: true })
+      await cartItems.forEach(citem => {
+        totalPrice += citem.price
+      })
+      await cart.forEach(async c => {
         Products.push(c.Products)
-        totalPrice = c.totalPrice
       })
       return res.render('cart', { totalPrice, cartId, Products })
     } catch (error) {
@@ -113,18 +107,11 @@ const productControllers = {
         return res.redirect('back')
       }
       const price = Number(productPrice) * Number(quantity)
-      const cart = await Cart.findByPk(cartId)
-      let totalPrice = 0
-      if (!cart) throw new Error('購物車不存在')
       const cartItem = await CartItem.findOne({ where: { productId } })
       await cartItem.update({
         quantity: Number(quantity),
         price: Number(price)
       })
-      const cartItems = await CartItem.findAll({ raw: true })
-      await cartItems.forEach(c => { totalPrice += c.price })
-      console.log(totalPrice)
-      await cart.update({ totalPrice })
       req.flash('success_messages', '成功編輯購物車商品')
       return res.redirect(`/cart/${cartId}`)
     } catch (error) {
