@@ -123,6 +123,7 @@ const productControllers = {
       })
       const cartItems = await CartItem.findAll({ raw: true })
       await cartItems.forEach(c => { totalPrice += c.price })
+      console.log(totalPrice)
       await cart.update({ totalPrice })
       req.flash('success_messages', '成功編輯購物車商品')
       return res.redirect(`/cart/${cartId}`)

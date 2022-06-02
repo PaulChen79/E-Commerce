@@ -20,7 +20,8 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       is_admin: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       },
       user_name: {
         type: Sequelize.STRING
