@@ -129,6 +129,24 @@ const productControllers = {
     } catch (error) {
       next(error)
     }
+  },
+  deleteCartItem: async (req, res, next) => {
+    try {
+      const cartId = req.user.cartId
+      const productId = req.params.id
+      let totalPrice = 0
+      const cart = await Cart.findByPk(cartId)
+      const cartItem = await CartItem.findOne({ where: { productId } })
+      if (!cartItem) throw new Error('購物車商品不存在')
+      await cartItem.destroy()
+      const cartItems = await CartItem.findAll({ raw: true })
+      await cartItems.forEach(c => { totalPrice += c.price })
+      await cart.update({ totalPrice })
+      req.flash('success_messages', '成功刪除購物車商品')
+      return res.redirect(`/cart/${cartId}`)
+    } catch (error) {
+      next(error)
+    }
   }
 }
 

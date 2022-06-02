@@ -20,6 +20,7 @@ router.get('/products', authenticated, productControllers.getProducts)
 
 router.put('/cartItems/:id', productControllers.editCartItem)
 router.get('/cartItems/:id/edit', productControllers.getEditToCartPage)
+router.delete('/cartItems/:id/', productControllers.deleteCartItem)
 router.post('/cartItems', productControllers.addToCart)
 
 router.get('/cart/:id', productControllers.getCart)
