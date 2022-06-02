@@ -18,11 +18,12 @@
             style="transition: opacity 0.5s; opacity:0;" onload="this.style.opacity=1;">
         </a>
         <div class="card-body">
-          <p class="card-text">
-            <a href="/products/{{this.id}}">
+          <div class="card-text d-flex justify-content-between">
+            <a class="text-decoration-none" style="color: Black;" href="/products/{{this.id}}">
               {{this.name}}
             </a>
-          </p>
+            <p class="fs-3">${{this.price}}</p>
+          </div>
           <span class="badge bg-secondary">{{this.Category.name}}</span>
           <p class="card-text text-truncate">{{this.description}}</p>
         </div>
