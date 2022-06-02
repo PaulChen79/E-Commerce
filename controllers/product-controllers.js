@@ -77,11 +77,15 @@ const productControllers = {
   getCart: async (req, res, next) => {
     try {
       const cartId = req.params.id
-      const cart = await Cart.findAll({ where: { id: cartId }, include: [{ model: CartItem, include: [Product] }], raw: true, nest: true }
-      )
+      const Products = []
+      let totalPrice = 0
+      let cart = await Cart.findAll({ where: { id: cartId }, raw: true, nest: true, include: [Product] })
       if (!cart) throw new Error('購物車不存在')
-      console.log(JSON.stringify(cart, null, 2))
-      return res.render('cart', { cart })
+      cart = await cart.forEach(c => {
+        Products.push(c.Products)
+        totalPrice = c.totalPrice
+      })
+      return res.render('cart', { totalPrice, cartId, Products })
     } catch (error) {
       next(error)
     }

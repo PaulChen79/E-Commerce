@@ -1,7 +1,10 @@
-<form action="/orders" method="POST" style="display: inline;">
-  <input type="hidden" name="cartId" value="{{cart.id}}" />
-  <button type="submit" class="btn btn-info">Checkout</button>
-</form>
+<div class="d-flex justify-content-between">
+  <h4>Total price: <span class="fs-1">${{totalPrice}}</span></h4>
+  <form action="/orders" method="POST" style="display: inline;" class="mx-3 align-self-center">
+    <input type="hidden" name="cartId" value="{{cartId}}" />
+    <button type="submit" class="btn btn-info">Checkout</button>
+  </form>
+</div>
 <br />
 <br />
 <table class="table align-middle">
@@ -11,24 +14,26 @@
       <th scope="col">Name</th>
       <th scope="col">Amount</th>
       <th scope="col">Price</th>
+      <th scope="col">Total</th>
       <th scope="col" class="text-center">Action</th>
     </tr>
   </thead>
   <tbody>
-    {{#each cart.CartItems}}
+    {{#each Products}}
       <tr>
         <th scope="row">{{this.id}}</th>
-        <td>{{this.Product.name}}</td>
-        <td>{{this.quantity}}</td>
+        <td>{{this.name}}</td>
+        <td>{{this.CartItem.quantity}}</td>
         <td>{{this.price}}</td>
+        <td>{{this.CartItem.price}}</td>
         <td class="d-flex justify-content-center">
           <button type="button" class="btn btn-link">
-            <a class="btn btn-link link-primary" href="/cartItems/{{this.id}}/edit">
+            <a class="btn btn-link link-primary" href="/cartItems/{{this.CartItem.id}}/edit">
               Edit
             </a>
           </button>
           <form action="/cartItems/{{this.id}}?_method=DELETE" method="POST" style="display: inline;" class="align-self-center">
-            <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{ this.Product.name }} 嗎？`)">Delete</button>
+            <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
           </form>
         </td>
       </tr>
