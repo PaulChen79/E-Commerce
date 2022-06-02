@@ -27,6 +27,8 @@ router.get('/cart/:id', productControllers.getCart)
 
 router.post('/orders', (req, res) => console.log(req.body))
 
+router.get('/users/:id', userControllers.getProfile)
+
 router.use('/', generalErrorHandler)
 router.use('/', (req, res) => res.redirect('/products'))
 

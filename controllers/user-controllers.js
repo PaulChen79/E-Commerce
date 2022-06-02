@@ -71,6 +71,16 @@ const userControllers = {
     } catch (error) {
       next(error)
     }
+  },
+  getProfile: async (req, res, next) => {
+    try {
+      const userId = req.params.id
+      const user = await User.findByPk(userId, { raw: true })
+      if (!user) throw new Error('使用者不存在')
+      return res.render('users/profile', { user })
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
